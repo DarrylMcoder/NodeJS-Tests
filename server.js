@@ -15,4 +15,4 @@ http.createServer((request, response) => {
     response.statusCode = 404;
     response.end();
   }
-}).listen(process.env.PORT || 80);
+}).listen(process.env.PORT);
