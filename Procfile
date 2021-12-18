@@ -1,1 +1,1 @@
-web: node echo.js
+web: node server.js
