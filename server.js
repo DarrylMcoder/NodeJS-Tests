@@ -1,6 +1,7 @@
 
 var http = require("http");
 var proxy = require("http-proxy").createProxyServer();
+var caesarShift = require("./caesarShift.js").caesarShift;
 
 // Listen for the `error` event on `proxy`.
 proxy.on('error', function (err, req, res) {
@@ -11,17 +12,14 @@ proxy.on('error', function (err, req, res) {
   res.end('Something went wrong. And we are reporting a custom error message.');
 });
 
-/*proxy.on('proxyRes', function (proxyRes, req, res) {
+proxy.on('proxyRes', function (proxyRes, req, res) {
   let body = [];
   proxyRes.on('data', (chunk) => {
     body.push(chunk);
   }).on('end', () => {
     body = Buffer.concat(body).toString();
-    res.writeHead(200,{
-      Test: "Test"
-    });
-    res.write(body);
-    res.end('Test');
+    res.statusCode = 200;
+    res.end(caesarShift(body,1));
   }).on('error', (e,req,res) => {
     res.writeHead(500,'Internal server error',{});
     res.end('Something went wrong. \n<br> Error: ' + e);
@@ -29,7 +27,7 @@ proxy.on('error', function (err, req, res) {
 }).on('error', (e,req,res) => {
   res.writeHead(500,'Internal server error',{});
   res.end('Something went wrong. \n<br> Error: ' + e);
-});*/
+});
 
 http.createServer((req, res) => {
   proxy.web(req, res, {
