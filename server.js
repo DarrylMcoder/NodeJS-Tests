@@ -36,7 +36,8 @@ http.createServer((req, res) => {
     target: path2Proxy(req.url),
     ignorePath: true,
     changeOrigin: true,
-    //selfHandleResponse: true
+    //selfHandleResponse: true,
+    autoRewrite: true
   });
 }).listen(process.env.PORT || 80);
   
