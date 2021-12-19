@@ -1,18 +1,44 @@
-const http = require('http');
 
-http.createServer((request, response) => {
-  request.on('error', (err) => {
-    console.error(err);
-    response.statusCode = 400;
-    response.end();
+var http = require("http");
+var proxy = require("http-proxy").createProxyServer();
+
+// Listen for the `error` event on `proxy`.
+proxy.on('error', function (err, req, res) {
+  res.writeHead(500, {
+    'Content-Type': 'text/plain'
   });
-  response.on('error', (err) => {
-    console.error(err);
+
+  res.end('Something went wrong. And we are reporting a custom error message.');
+});
+
+proxy.on('proxyRes', function (proxyRes, req, res) {
+  let body = [];
+  proxyRes.on('data', (chunk) => {
+    body.push(chunk);
+  }).on('end', () => {
+    body = Buffer.concat(body).toString();
+    res.writeHead(200,{
+      Test: "Test"
+    });
+    res.write(body);
+    res.end();
+  }).on('error', (e) => {
+    res.writeHead(500,'Internal server error',{
+
+    });
+    res.end('Something went wrong. \n<br> Error: ' + e);
   });
-  if (request.method === 'POST' && request.url === '/echo') {
-    request.pipe(response);
-  } else {
-    response.statusCode = 404;
-    response.end();
+});
+
+http.createServer((req, res) => {
+  proxy.web(req, res, {
+    target: path2Proxy(req.url),
+    ignorePath: true,
+    changeOrigin: true,
+    selfHandleResponse: true
+  });
+}).listen(process.env.PORT || 80);
+  
+  function path2Proxy(url) {
+    return url.replace(/^\//g, '');
   }
-}).listen(process.env.PORT);
