@@ -21,13 +21,14 @@ proxy.on('proxyRes', function (proxyRes, req, res) {
       Test: "Test"
     });
     res.write(body);
-    res.end();
-  }).on('error', (e) => {
-    res.writeHead(500,'Internal server error',{
-
-    });
+    res.end('Test');
+  }).on('error', (e,req,res) => {
+    res.writeHead(500,'Internal server error',{});
     res.end('Something went wrong. \n<br> Error: ' + e);
   });
+}).on('error', (e,req,res) => {
+  res.writeHead(500,'Internal server error',{});
+  res.end('Something went wrong. \n<br> Error: ' + e);
 });
 
 http.createServer((req, res) => {
