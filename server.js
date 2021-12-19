@@ -11,7 +11,7 @@ proxy.on('error', function (err, req, res) {
   res.end('Something went wrong. And we are reporting a custom error message.');
 });
 
-proxy.on('proxyRes', function (proxyRes, req, res) {
+/*proxy.on('proxyRes', function (proxyRes, req, res) {
   let body = [];
   proxyRes.on('data', (chunk) => {
     body.push(chunk);
@@ -29,14 +29,14 @@ proxy.on('proxyRes', function (proxyRes, req, res) {
 }).on('error', (e,req,res) => {
   res.writeHead(500,'Internal server error',{});
   res.end('Something went wrong. \n<br> Error: ' + e);
-});
+});*/
 
 http.createServer((req, res) => {
   proxy.web(req, res, {
     target: path2Proxy(req.url),
     ignorePath: true,
     changeOrigin: true,
-    selfHandleResponse: true
+    //selfHandleResponse: true
   });
 }).listen(process.env.PORT || 80);
   
