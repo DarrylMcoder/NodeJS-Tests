@@ -37,7 +37,8 @@ http.createServer((req, res) => {
     ignorePath: true,
     changeOrigin: true,
     //selfHandleResponse: true,
-    autoRewrite: true
+    //autoRewrite: true,
+    followRedirects: true
   });
 }).listen(process.env.PORT || 80);
   
