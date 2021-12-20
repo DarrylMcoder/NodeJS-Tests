@@ -30,14 +30,22 @@ proxy.on('proxyRes', function (proxyRes, req, res) {
 });
 
 http.createServer((req, res) => {
-  proxy.web(req, res, {
-    target: path2Proxy(req.url),
-    ignorePath: true,
-    changeOrigin: true,
-    //selfHandleResponse: true,
-    //autoRewrite: true,
-    followRedirects: true
-  });
+  //if not complete URL
+  //not starting with http
+  if(!req.url.match(/^\/http/g)) {
+    res.statusCode = 400;
+    res.end("Incomplete request");
+    console.log("Incomplete request:" + req.url);
+  }else{
+    proxy.web(req, res, {
+      target: path2Proxy(req.url),
+      ignorePath: true,
+      changeOrigin: true,
+      //selfHandleResponse: true,
+      //autoRewrite: true,
+      followRedirects: true
+    });
+  }
 }).listen(process.env.PORT || 80);
   
   function path2Proxy(url) {
