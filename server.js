@@ -30,6 +30,16 @@ proxy.on('proxyRes', function (proxyRes, req, res) {
 });
 
 http.createServer((req, res) => {
+  req.on('error',(e) => {
+    console.log(e);
+    res.statusCode = 400;
+    res.end("Request error");
+  });
+  res.on('error',(e) => {
+    console.log(e);
+    res.statusCode = 500;
+    res.end('Internal server error');
+  });
   //if not complete URL
   //not starting with http
   if(!req.url.match(/^\/http/g)) {
