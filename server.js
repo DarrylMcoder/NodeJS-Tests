@@ -12,7 +12,7 @@ proxy.on('error', function (err, req, res) {
   res.end('Something went wrong. And we are reporting a custom error message.');
 });
 
-/*proxy.on('proxyRes', function (proxyRes, req, res) {
+proxy.on('proxyRes', function (proxyRes, req, res) {
   let body = [];
   proxyRes.on('data', (chunk) => {
     body.push(chunk);
@@ -27,7 +27,7 @@ proxy.on('error', function (err, req, res) {
 }).on('error', (e,req,res) => {
   res.writeHead(500,'Internal server error',{});
   res.end('Something went wrong. \n<br> Error: ' + e);
-});*/
+});//*/
 
 http.createServer((req, res) => {
   req.on('error',(e) => {
@@ -44,14 +44,14 @@ http.createServer((req, res) => {
   //not starting with http
   if(!req.url.match(/^\/http/g)) {
     res.statusCode = 400;
-    res.end("Incomplete request");
+    res.end("Incomplete request URL \n");
     console.log("Incomplete request:" + req.url);
   }else{
     proxy.web(req, res, {
       target: path2Proxy(req.url),
       ignorePath: true,
       changeOrigin: true,
-      //selfHandleResponse: true,
+      selfHandleResponse: true,
       //autoRewrite: true,
       followRedirects: true
     });
