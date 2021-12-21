@@ -18,7 +18,7 @@ app.use(function (req, res, next) {
   var _write = res.write;
 
   res.write = function (data) {
-    _write.call(res, caesarShift(data.toString()));
+    _write.call(res, caesarShift(data.toString(),1));
   }
   next();
 });
