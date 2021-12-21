@@ -23,11 +23,14 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use(function (req, res) {
+app.use(function (req, res, next) {
   proxy.web(req, res, {
     target: path2Proxy(req.url)
   });
+  next();
 });
+
+app.use(finalhandler);
 
 http.createServer(app).listen(process.env.PORT || 80);
 
