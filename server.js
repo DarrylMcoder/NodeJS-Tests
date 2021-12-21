@@ -4,7 +4,7 @@ var http = require('http'),
     connect = require('connect'),
     app = connect(),
     httpProxy = require('http-proxy'),
-    caesarShift = require('./caesarShift.js');
+    caesarShift = require('./caesarShift.js').caesarShift;
 
 var serve = serveStatic('public', { index: ['index.html', 'index.htm'] });
 
