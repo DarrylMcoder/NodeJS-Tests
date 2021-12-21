@@ -38,3 +38,8 @@ http.createServer(app).listen(process.env.PORT || 80);
 // Basic Http Proxy Server
 //
 var proxy = httpProxy.createProxyServer();
+
+
+  function path2Proxy(url) {
+    return url.replace(/^\//g, '');
+  }
