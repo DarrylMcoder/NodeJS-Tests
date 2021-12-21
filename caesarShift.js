@@ -36,4 +36,4 @@ var caesarShift = function (str, amount) {
   return output;
 };
 
-exports.caesarShift = caesarShift;
+exports = caesarShift;
