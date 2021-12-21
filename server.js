@@ -14,7 +14,7 @@ var serve = serveStatic('public', { index: ['index.html', 'index.htm'] });
 
 //app.use(serve);
 
-app.use('proxy/',function (req, res, next) {
+app.use('/proxy/',function (req, res, next) {
   var _write = res.write;
 
   res.write = function (data) {
@@ -23,7 +23,7 @@ app.use('proxy/',function (req, res, next) {
   next();
 });
 
-app.use('proxy/',function (req, res, next) {
+app.use('/proxy/',function (req, res, next) {
   proxy.web(req, res, {
     target: path2Proxy(req.url)
   });
