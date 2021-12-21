@@ -30,7 +30,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use(finalhandler);
+//app.use(finalhandler);
 
 http.createServer(app).listen(process.env.PORT || 80);
 
