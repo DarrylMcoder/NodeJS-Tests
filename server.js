@@ -12,7 +12,7 @@ var serve = serveStatic('public', { index: ['index.html', 'index.htm'] });
 // Basic Connect App
 //
 
-app.use(serve);
+//app.use(serve);
 
 app.use('proxy/',function (req, res, next) {
   var _write = res.write;
