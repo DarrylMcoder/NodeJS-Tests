@@ -29,7 +29,7 @@ app.use(function (req, res) {
   });
 });
 
-http.createServer(app).listen(8013);
+http.createServer(app).listen(process.env.PORT || 80);
 
 //
 // Basic Http Proxy Server
