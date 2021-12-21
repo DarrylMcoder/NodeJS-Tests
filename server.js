@@ -1,63 +1,37 @@
+var http = require('http'),
+    serveStatic = require('serve-static'),
+    finalhandler = require('finalhandler'),
+    caesarShift = require('./caesarShift.js');
+    connect = require('connect'),
+    app = connect(),
+    httpProxy = require('http-proxy');
 
-var http = require("http");
-var proxy = require("http-proxy").createProxyServer();
-var caesarShift = require("./caesarShift.js").caesarShift;
+var serve = serveStatic('public', { index: ['index.html', 'index.htm'] });
 
-// Listen for the `error` event on `proxy`.
-proxy.on('error', function (err, req, res) {
-  res.writeHead(500, {
-    'Content-Type': 'text/plain'
-  });
+//
+// Basic Connect App
+//
 
-  res.end('Something went wrong. And we are reporting a custom error message.');
+app.use(serve);
+
+app.use(function (req, res, next) {
+  var _write = res.write;
+
+  res.write = function (data) {
+    _write.call(res, caesarShift(data.toString()));
+  }
+  next();
 });
 
-proxy.on('proxyRes', function (proxyRes, req, res) {
-  let body = [];
-  proxyRes.on('data', (chunk) => {
-    body.push(chunk);
-  }).on('end', () => {
-    body = Buffer.concat(body).toString();
-    res.statusCode = 200;
-    res.end(caesarShift(body,1));
-  }).on('error', (e,req,res) => {
-    res.writeHead(500,'Internal server error',{});
-    res.end('Something went wrong. \n<br> Error: ' + e);
+app.use(function (req, res) {
+  proxy.web(req, res, {
+    target: path2Proxy(req.url)
   });
-}).on('error', (e,req,res) => {
-  res.writeHead(500,'Internal server error',{});
-  res.end('Something went wrong. \n<br> Error: ' + e);
-});//*/
+});
 
-http.createServer((req, res) => {
-  req.on('error',(e) => {
-    console.log(e);
-    res.statusCode = 400;
-    res.end("Request error");
-  });
-  res.on('error',(e) => {
-    console.log(e);
-    res.statusCode = 500;
-    res.end('Internal server error');
-  });
-  //if not complete URL
-  //not starting with http
-  if(!req.url.match(/^\/http/g)) {
-    res.statusCode = 400;
-    res.end("Incomplete request URL \n");
-    console.log("Incomplete request:" + req.url);
-  }else{
-    proxy.web(req, res, {
-      target: path2Proxy(req.url),
-      ignorePath: true,
-      changeOrigin: true,
-      selfHandleResponse: true,
-      //autoRewrite: true,
-      followRedirects: true
-    });
-  }
-}).listen(process.env.PORT || 80);
-  
-  function path2Proxy(url) {
-    return url.replace(/^\//g, '');
-  }
+http.createServer(app).listen(8013);
+
+//
+// Basic Http Proxy Server
+//
+var proxy = httpProxy.createProxyServer();
