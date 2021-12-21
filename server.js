@@ -1,10 +1,10 @@
 var http = require('http'),
     serveStatic = require('serve-static'),
     finalhandler = require('finalhandler'),
-    caesarShift = require('./caesarShift.js');
     connect = require('connect'),
     app = connect(),
-    httpProxy = require('http-proxy');
+    httpProxy = require('http-proxy'),
+    caesarShift = require('./caesarShift.js');
 
 var serve = serveStatic('public', { index: ['index.html', 'index.htm'] });
 
