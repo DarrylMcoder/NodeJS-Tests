@@ -31,7 +31,8 @@ app.use(function (req, res, next) {
 
 app.use(function (req, res) {
   proxy.web(req, res, {
-    target: path2Proxy(req.url)
+    target: path2Proxy(req.url),
+    ignorePath: true
   });
 });
 
