@@ -20,7 +20,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/proxy/',function (req, res, next) {
+app.use(function (req, res, next) {
   var _write = res.write;
 
   res.write = function (data) {
@@ -29,11 +29,10 @@ app.use('/proxy/',function (req, res, next) {
   next();
 });
 
-app.use('/proxy/',function (req, res, next) {
+app.use(function (req, res) {
   proxy.web(req, res, {
     target: path2Proxy(req.url)
   });
-  next();
 });
 
 //app.use(finalhandler);
