@@ -14,6 +14,12 @@ var serve = serveStatic('public', { index: ['index.html', 'index.htm'] });
 
 //app.use(serve);
 
+app.use((req, res, next) => {
+  req.on('error', (err) => console.log('Request error: ' + err));
+  res.on('error', (err) => console.log('Response error: ' + err));
+  next();
+});
+
 app.use('/proxy/',function (req, res, next) {
   var _write = res.write;
 
@@ -39,6 +45,9 @@ http.createServer(app).listen(process.env.PORT || 80);
 //
 var proxy = httpProxy.createProxyServer();
 
+proxy.on('error', (err, req, res) => {
+  console.log("Proxy error: " + err);
+});
 
   function path2Proxy(url) {
     return url.replace(/^\//g, '');
