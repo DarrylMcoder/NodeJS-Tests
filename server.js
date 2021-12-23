@@ -50,7 +50,7 @@ proxy.on('error', (err, req, res) => {
   console.log("Proxy error: " + err);
 });
 
-proxy.on('proxyRes' (proxyRes, req, res) => {
+proxy.on('proxyRes', (proxyRes, req, res) => {
    console.log('RAW Response from the target', JSON.stringify(proxyRes.headers, true, 2));
 });
 
