@@ -50,7 +50,9 @@ proxy.on('error', (err, req, res) => {
   console.log("Proxy error: " + err);
 });
 
-proxy.on('proxyRes' (proxyRes, req, res) =>  console.log('RAW Response from the target', JSON.stringify(proxyRes.headers, true, 2)));
+proxy.on('proxyRes' (proxyRes, req, res) => {
+   console.log('RAW Response from the target', JSON.stringify(proxyRes.headers, true, 2));
+});
 
   function path2Proxy(url) {
     return url.replace(/^\//g, '');
