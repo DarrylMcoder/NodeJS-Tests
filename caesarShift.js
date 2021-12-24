@@ -1,4 +1,5 @@
 var caesarShift = function (str, amount) {
+  console.log('Str: ' + str);
   // Wrap the amount
   if (amount < 0) {
     return caesarShift(str, amount + 26);
