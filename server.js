@@ -10,7 +10,8 @@ var http = require('http'),
     app = connect(),
     httpProxy = require('http-proxy'),
     proxy = httpProxy.createProxyServer(),
-    caesar = require('./caesar.js'),
+    Caesar = require('./caesar.js'),
+    caesar = Caesar.createStream(),
     port = process.env.PORT || 80;
 
 
