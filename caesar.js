@@ -14,9 +14,7 @@ class Caesar extends Transform{
   }
 }
 
-exports = {
-  caesarShift: caesarShift,
-  createStream: function() {
+exports.caesarShift = caesarShift;
+exports.createStream = function() {
     return new Caesar();
-  }
 }
