@@ -61,6 +61,7 @@ proxy.on('proxyRes', (proxyRes, req, res) => {
   }
 });
 
+process.on('warning', e => console.warn(e.stack));
 
 function path2Proxy(url) {
   return url.replace(/^\//g, '');
