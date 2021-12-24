@@ -23,6 +23,12 @@ app.use((req, res, next) => {
 
 
 app.use(function (req, res) {
+  if(!req.url.match(/^\/http/g)) {
+    res.statusCode = 400;
+    res.end("Incomplete request URL \n");
+    console.log("Incomplete request:" + req.url);
+    return;
+  }
   proxy.web(req, res, {
     target: path2Proxy(req.url),
     ignorePath: true,
@@ -48,7 +54,7 @@ proxy.on('proxyRes', (proxyRes, req, res) => {
       break;
     
     default:
-      proxyRes.pipe(res);
+      proxyRes.pipe(caesar).pipe(res);
   }
 });
 
