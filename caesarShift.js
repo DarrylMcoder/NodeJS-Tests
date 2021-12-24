@@ -1,5 +1,6 @@
 var caesarShift = function (str, amount) {
   console.log('Str: ' + str);
+  console.log('StrType: ' + (typeof str));
   // Wrap the amount
   if (amount < 0) {
     return caesarShift(str, amount + 26);
