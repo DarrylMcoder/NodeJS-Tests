@@ -11,6 +11,7 @@ class Caesar extends Transform{
     chunk = chunk.toString();
     var text = caesarShift(chunk,1);
     this.push(text);
+    console.log('Text: ' + text);
     done();
   }
 }
