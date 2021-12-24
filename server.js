@@ -29,19 +29,18 @@ app.use(function (req, res) {
     return;
   }
   proxy.web(req, res, {
-    target: path2Proxy(req.url)
+    target: path2Proxy(req.url),
+    ignorePath: true,
+    changeOrigin: true,
+    selfHandleResponse: true,
+    secure: false,
+    followRedirects: true
   });
 });
 
 http.createServer(app).listen(port);
 
-var proxy = httpProxy.createProxyServer({
-  ignorePath: true,
-  changeOrigin: true,
-  selfHandleResponse: true,
-  secure: false,
-  followRedirects: true
-});
+var proxy = httpProxy.createProxyServer({});
 
 proxy.on('error', (err, req, res) => console.log("Proxy error: " + err));
 
