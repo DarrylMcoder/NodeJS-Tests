@@ -33,7 +33,9 @@ app.use(function (req, res) {
     target: path2Proxy(req.url),
     ignorePath: true,
     changeOrigin: true,
-    selfHandleResponse: true
+    selfHandleResponse: true,
+    secure: false,
+    followRedirects: true
   });
 });
 
@@ -43,7 +45,7 @@ proxy.on('error', (err, req, res) => console.log("Proxy error: " + err));
 
 
 proxy.on('proxyRes', (proxyRes, req, res) => {
-  console.log('RAW Response from the target', JSON.stringify(proxyRes.headers, true, 2));
+  //console.log('RAW Response from the target', JSON.stringify(proxyRes.headers, true, 2));
   switch(proxyRes.headers['content-encoding']){
     case 'gzip':
       proxyRes.pipe(gunzip).pipe(caesar).pipe(gzip).pipe(res);
