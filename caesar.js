@@ -8,6 +8,7 @@ class Caesar extends Transform{
   }
   
   _transform(chunk, enc, done){
+    chunk = chunk.toString();
     var text = caesarShift(chunk,1);
     this.push(text);
     done();
