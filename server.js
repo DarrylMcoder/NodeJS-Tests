@@ -9,7 +9,6 @@ var http = require('http'),
     connect = require('connect'),
     app = connect(),
     httpProxy = require('http-proxy'),
-    proxy = httpProxy.createProxyServer(),
     Caesar = require('./caesar.js'),
     caesar = Caesar.createStream(),
     port = process.env.PORT || 80;
@@ -30,16 +29,19 @@ app.use(function (req, res) {
     return;
   }
   proxy.web(req, res, {
-    target: path2Proxy(req.url),
-    ignorePath: true,
-    changeOrigin: true,
-    selfHandleResponse: true,
-    secure: false,
-    followRedirects: true
+    target: path2Proxy(req.url)
   });
 });
 
 http.createServer(app).listen(port);
+
+var proxy = httpProxy.createProxyServer({
+  ignorePath: true,
+  changeOrigin: true,
+  selfHandleResponse: true,
+  secure: false,
+  followRedirects: true
+});
 
 proxy.on('error', (err, req, res) => console.log("Proxy error: " + err));
 
