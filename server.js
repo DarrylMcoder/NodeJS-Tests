@@ -47,6 +47,9 @@ proxy.on('error', (err, req, res) => console.log("Proxy error: " + err));
 
 proxy.on('proxyRes', (proxyRes, req, res) => {
   console.log(proxyRes.headers['content-encoding']);
+  proxyRes.pipe(res);
+  
+  /*
   switch(proxyRes.headers['content-encoding']){
     case 'gzip':
       proxyRes.pipe(gunzip).pipe(caesar).pipe(gzip).pipe(res).on('error', (e) => console.log(e)).on('finish', () => console.log('Finish'));
@@ -58,7 +61,9 @@ proxy.on('proxyRes', (proxyRes, req, res) => {
     
     default:
       proxyRes.pipe(caesar).pipe(res).on('error', (e) => console.log(e)).on('finish', () => console.log('Finish'));
+      break;
   }
+//*/
 });
 
 process.on('warning', e => console.warn(e.stack));
