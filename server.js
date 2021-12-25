@@ -50,23 +50,7 @@ proxy.on('proxyReq', (proxyReq, req, res) => {
 
 proxy.on('proxyRes', (proxyRes, req, res) => {
   console.log(proxyRes.headers['content-encoding']);
-  proxyRes.pipe(res);
-  
-  /*
-  switch(proxyRes.headers['content-encoding']){
-    case 'gzip':
-      proxyRes.pipe(gunzip).pipe(caesar).pipe(gzip).pipe(res).on('error', (e) => console.log(e)).on('finish', () => console.log('Finish'));
-      break;
-    
-    case 'deflate':
-      proxyRes.pipe(inflate).pipe(caesar).pipe(deflate).pipe(res).on('error', (e) => console.log(e)).on('finish', () => console.log('Finish'));
-      break;
-    
-    default:
-      proxyRes.pipe(caesar).pipe(res).on('error', (e) => console.log(e)).on('finish', () => console.log('Finish'));
-      break;
-  }
-//*/
+  proxyRes.pipe(caesar).pipe(res);
 });
 
 process.on('warning', e => console.warn(e.stack));
