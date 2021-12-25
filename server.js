@@ -51,6 +51,7 @@ proxy.on('proxyReq', (proxyReq, req, res) => {
 proxy.on('proxyRes', (proxyRes, req, res) => {
   console.log(proxyRes.headers['content-encoding']);
   proxyRes.pipe(Caesar.createStream()).pipe(res);
+  return;
 });
 
 process.on('warning', e => console.warn(e.stack));
