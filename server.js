@@ -50,7 +50,7 @@ proxy.on('proxyReq', (proxyReq, req, res) => {
 
 proxy.on('proxyRes', (proxyRes, req, res) => {
   console.log(proxyRes.headers['content-encoding']);
-  proxyRes.pipe(caesar).pipe(res);
+  proxyRes.pipe(Caesar.createStream()).pipe(res);
 });
 
 process.on('warning', e => console.warn(e.stack));
