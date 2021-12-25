@@ -47,6 +47,7 @@ proxy.on('error', (err, req, res) => console.log("Proxy error: " + err));
 
 proxy.on('proxyRes', (proxyRes, req, res) => {
   console.log(proxyRes.headers['content-encoding']);
+  res.writeHead(proxyRes.statusCode, proxyRes.headers);
   proxyRes.pipe(res);
   
   /*
