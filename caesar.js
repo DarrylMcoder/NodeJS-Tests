@@ -8,10 +8,11 @@ class Caesar extends Transform{
   }
   
   _transform(chunk, enc, done){
+    console.log('Decoded: ' + chunk);
     chunk = chunk.toString();
     var text = caesarShift(chunk,1);
     this.push(text);
-    console.log('Text: ' + text);
+    console.log('Encoded: ' + text);
     done();
   }
 }

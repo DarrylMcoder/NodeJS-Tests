@@ -44,10 +44,12 @@ var proxy = httpProxy.createProxyServer({});
 
 proxy.on('error', (err, req, res) => console.log("Proxy error: " + err));
 
+proxy.on('proxyReq', (proxyReq, req, res) => {
+  proxyReq.setHeader('Accept-Encoding', '');
+})
 
 proxy.on('proxyRes', (proxyRes, req, res) => {
   console.log(proxyRes.headers['content-encoding']);
-  res.writeHead(proxyRes.statusCode, proxyRes.headers);
   proxyRes.pipe(res);
   
   /*
