@@ -84,7 +84,7 @@ function processRes(proxyRes, req, res) {
     });
     handleCompressed(res, _res, caesar, unzip, zip);
   } else if (!contentEncoding) {
-    handleUncompressed(res, _write, _end, callback);
+    handleUncompressed(res, _res, caesar);
   } else {
     console.log('Not supported content-encoding: ' + contentEncoding);
   }
@@ -101,7 +101,7 @@ function handleCompressed(res, _res, caesar, unzip, zip) {
 
 
 
-function handleUncompressed(res, _res, caesar, unzip, zip) {
+function handleUncompressed(res, _res, caesar) {
 
   res.write = data => { caesar.write(data) };
 
