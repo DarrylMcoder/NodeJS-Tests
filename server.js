@@ -34,8 +34,8 @@ app.use((req, res) => {
       target: path2Proxy(req.url),
       ignorePath: true,
       changeOrigin: true,
-      selfHandleResponse: true,
-      //autoRewrite: true,
+      //selfHandleResponse: true,
+      autoRewrite: true,
       followRedirects: true
   });
 });
