@@ -82,7 +82,7 @@ function processRes(proxyRes, req, res) {
       console.log('Unzip error: ', e);
       _end.call(res);
     });
-    handleCompressed(res, _res, caesar, unzip, zip, callback);
+    handleCompressed(res, _res, caesar, unzip, zip);
   } else if (!contentEncoding) {
     handleUncompressed(res, _write, _end, callback);
   } else {
@@ -90,7 +90,7 @@ function processRes(proxyRes, req, res) {
   }
 }
 
-function handleCompressed(res, _res, caesar, unzip, zip, callback) {
+function handleCompressed(res, _res, caesar, unzip, zip) {
 
   res.write = data => { unzip.write(data) };
 
