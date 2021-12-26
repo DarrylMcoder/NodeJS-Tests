@@ -98,3 +98,14 @@ function handleCompressed(res, _res, caesar, unzip, zip) {
   
   unzip.pipe(caesar).pipe(zip).pipe(_res);
 }
+
+
+
+function handleUncompressed(res, _res, caesar, unzip, zip) {
+
+  res.write = data => { caesar.write(data) };
+
+  res.end = () => caesar.end();
+  
+  caesar.pipe(_res);
+}
