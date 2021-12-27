@@ -1,6 +1,7 @@
 var express = require("express"),
     unblocker = require("unblocker"),
     encodeContent = require('./encodeContent.js'),
+    serveStatic = require('serve-static'),
     port = process.env.PORT || 80,
     app = express();
 
@@ -18,10 +19,13 @@ app.use(
   })
 );
 
-app.get("/", (req, res) =>
-  res.redirect("/proxy/https://en.wikipedia.org/wiki/Main_Page")
-);
+app.use("/",serveStatic("public", {
+  index: [
+    "index.html",
+    "index.htm"
+  ],
+}));
 
 app.listen(port);
 
-console.log("app listening on port 8080. Test at http://localhost:8080/");
+console.log("app listening on port "+ port);
