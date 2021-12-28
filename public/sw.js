@@ -13,6 +13,9 @@ self.addEventListener('activate', function(event){
 });
 
 self.addEventListener('fetch', event => {
+  if(!event.request.url.includes('proxy/http')) {
+    return;
+  }
   event.respondWith(async function() {
     return fetch(event.request)
     .then(response => {

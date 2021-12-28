@@ -78,14 +78,15 @@
     </div>
     <script type="text/javascript">
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('sw.js')
-      .then(registration => {
+window.addEventListener('load', function() {
+  navigator.serviceWorker.register('sw.js', {
+    
+  }).then(registration => {
 
-    }).catch(e => {
+  }).catch(e => {
     alert('Error: \nPlease contact this site\'s developer at darryl9829@gmail.com with the following info:\n' + e);
-    });
   });
+});
 }else{
   alert('Your browser is not fully supported. Please use a different browser for this website.');
 }
