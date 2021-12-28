@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=320, initial-scale=1">
+    <meta charset="utf-8">
+    <style>
+      body, html {
+        min-width: 100%;
+        min-height: 100%;
+        margin: 0;
+        padding: 0;
+        font: Arial 14px;
+      }
+    </style>
+    <link rel="stylesheet" href="http://static.darrylmcoder.epizy.com/assets/style.css">
+    <script src="http://static.darrylmcoder.epizy.com/assets/script.js"> </script>
+  </head>
+  <body>
+        <div id="head">
+         <div class="title">
+         <h1>
+           <a class="titletext" href="http://darrylmcoder.epizy.com">DarrylMcoder's</a>
+           <p class="fine-print">
+             -online tools that maybe work.
+           </p>
+           </h1>
+       </div>
+      
+      <div onclick="openNav()" id="menu">
+        <div id="menuline">
+          
+        </div><br>
+        <div id="menuline">
+          
+        </div><br>
+        <div id="menuline">
+          
+        </div><br>
+       </div>
+      </div>
+    <div id="test"></div>
+
+  <script src="script.js"></script>
+<!-- The overlay -->
+<div id="myNav" class="overlay">
+
+  <!-- Button to close the overlay navigation -->
+
+    <a href="javascript:void(0)"                                  
+     class="closebtn" onclick="closeNav()">&times;</a>
+  <!-- Overlay content -->
+  <div class="overlay-content">
+    <div id=""class="closebtn"    
+           onclick="closeNav">
+    </div>
+    <a href="http://darrylmcoder.epizy.com/devtools/">Developer tools</a>
+    <a  href="http://darrylmcoder.epizy.com/downloaders/">Downloaders</a>
+    <a href="http://darrylmcoder.epizy.com/contact.html">Contact</a>
+   </div>
+  </div>
+    
+    <div class="content"><br>
+      <div class="pagetitle">
+        WEB PR0XY
+      </div>
+      <input type="text" id="input" placeholder="Enter URL" inputmode="search" class="input"> 
+      <a href="" id="a">
+      <button type="submit" class="go" id="btn">
+        Go
+      </button>
+      </a><br><br>
+    </div>
+    
+    <div class="footer">
+      <a class="footer-link"  href="terms"><b>Terms of Service</b></a><br>
+      <a class="footer-link" href="contact"><b>Contact</b></a><br><br><br><br>
+     
+    </div>
+    <script type="text/javascript">
+if ('serviceWorker' in navigator) {
+window.addEventListener('load', function() {
+  navigator.serviceWorker.register('sw.js', {
+    scope: './proxy'
+  }).then(registration => {
+
+  }).catch(e => {
+    alert('Error: \nPlease contact this site\'s developer at darryl9829@gmail.com with the following info:\n' + e);
+  });
+});
+}else{
+  alert('Your browser is not fully supported. Please use a different browser for this website.');
+}
+      
+      var input = document.getElementById('input');
+      var a = document.getElementById('a');
+      input.addEventListener('input', function() {
+        var val = input.value;
+        a.setAttribute('href', 'proxy/' + val);
+      });
+    </script>
+  </body>
+</html>
