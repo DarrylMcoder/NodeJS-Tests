@@ -22,6 +22,11 @@ self.addEventListener('fetch', event => {
       return response.text()
       .then(text => caesarShift(text, -1))
       .then(text => {
+        let status = response.status >= 100 
+        && response.status <= 599 
+        ? response.status : 200,
+            statusText = response.statusText,
+            headers = response.headers;
         return new Response(text, response);
       }).catch(e => {
         return new Response("Error: " + e);
