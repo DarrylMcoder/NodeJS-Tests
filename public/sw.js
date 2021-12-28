@@ -22,10 +22,7 @@ self.addEventListener('fetch', event => {
       return response.text()
       .then(text => caesarShift(text, -1))
       .then(text => {
-        return new Response(text, 
-        {
-          headers: response.headers
-        });
+        return new Response(text, response);
       }).catch(e => {
         return new Response("Error: " + e);
       });
