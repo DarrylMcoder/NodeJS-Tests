@@ -1,10 +1,10 @@
 "use strict";
 
-var URL = require("url");
+//var URL = require("url");
 
 module.exports = function (/*config*/) {
   return function originHeader(data) {
-    let url = URL.parse(data.url);
+    let url = new URL(data.url);
     data.headers.origin = url.origin;
   };
 };
