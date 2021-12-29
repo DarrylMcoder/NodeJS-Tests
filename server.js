@@ -1,12 +1,16 @@
 var express = require("express"),
     unblocker = require("unblocker"),
     encodeContent = require('./encodeContent.js'),
+    origin = require('./origin.js'),
     serveStatic = require('serve-static'),
     port = process.env.PORT || 80,
     app = express();
 
 app.use(
   unblocker({
+    requestMiddleware: [
+      origin(),
+    ],
     responseMiddleware: [
       encodeContent({
         processContentTypes: [
