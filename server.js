@@ -2,6 +2,7 @@ var express = require("express"),
     unblocker = require("unblocker"),
     encodeContent = require('./encodeContent.js'),
     origin = require('./origin.js'),
+    accessControlAllowOrigin = require('./access-control-allow-origin.js'),
     serveStatic = require('serve-static'),
     port = process.env.PORT || 80,
     app = express();
@@ -19,6 +20,7 @@ app.use(
           "text/css",
         ],
       }),
+      accessControlAllowOrigin(),
     ],
   })
 );
