@@ -2,8 +2,6 @@
 
 module.exports = function (/*config*/) {
   return function accessControlAllowOriginHeader(data) {
-    if(data.headers['access-control-allow-origin']) {
-      data.headers['access-control-allow-origin'] = 'https://' + process.env.HOSTNAME || null;
-    }
+    delete data.headers['access-control-allow-origin'];
   };
 };
