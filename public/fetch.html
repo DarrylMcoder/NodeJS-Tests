@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=320, initial-scale=1">
+    <meta charset="utf-8">
+    <style>
+      body, html {
+        min-width: 100%;
+        min-height: 100%;
+        margin: 0;
+        padding: 0;
+        font: Arial 14px;
+      }
+    </style>
+    <!--<link rel="stylesheet" href="style.css"/>-->
+    <!--<script defer src="script.js"></script>-->
+  </head>
+  <body>
+    <script type="text/javascript">
+      var a = window.prompt('Method');
+      var b = window.prompt('URL');
+      var x = new XMLHttpRequest();
+      x.onreadystatechange = function() {
+        if(x.readyState === 4) {
+          console.log(x.getAllResponseHeaders());
+          
+          var c = '\nStatus: ';
+          c += x.status;
+          c += ' ' + x.statusText;
+          c += '\nHeaders: '
+          c += x.getAllResponseHeaders();
+          c += 'Body: ';
+          c += x.responseText;
+          document.write(c);
+        }
+      };
+      x.open(a, b);
+      x.send();
+    </script>
+  </body>
+</html>
