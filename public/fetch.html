@@ -27,6 +27,8 @@
           var c = '\nStatus: ';
           c += x.status;
           c += ' ' + x.statusText;
+          c += 'URL: ';
+          c += x.responseURL;
           c += '\nHeaders: '
           c += x.getAllResponseHeaders();
           c += 'Body: ';
