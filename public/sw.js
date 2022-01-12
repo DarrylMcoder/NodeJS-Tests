@@ -17,7 +17,35 @@ self.addEventListener('fetch', event => {
     return;
   }
   event.respondWith(async function() {
-    return fetch(event.request)
+    try {
+    var url = encodeUrl(event.request.url);
+    var req = event.request;
+    var init =     {
+      method: req.method,
+      headers: req.headers,
+      credentials: req.credentials,
+      cache: req.cache,
+      redirect: req.redirect,
+      referrer: req.referrer,
+      integrity: req.integrity
+    };
+    
+    if(req.method === 'GET' ||
+       req.method === 'HEAD' ||
+       !req.method) {
+      
+    }else{
+      init.body = req.body;
+    }
+    
+    if(req.mode !== 'navigate') {
+      init.mode = req.mode;
+    }
+    var request = new Request(url,init);
+  } catch(e) {
+    return new Response("Error: " + e);
+  }
+    return fetch(request)
     .then(response => {
       return response.text()
       .then(text => caesarShift(text, -1))
@@ -40,3 +68,12 @@ self.addEventListener('fetch', event => {
     
 
 
+function encodeUrl(url) {
+  let separator = 'proxy/';
+  if(!url.includes(separator)) {
+    return;
+  }
+  let proxyUrl = url.slice(url.indexOf(separator) + separator.length);
+  let enc = caesarShift(proxyUrl, 1);
+  return url.replace(proxyUrl, enc);
+}
