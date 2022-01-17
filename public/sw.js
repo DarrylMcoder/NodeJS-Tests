@@ -27,7 +27,7 @@ self.addEventListener('fetch', event => {
       cache: req.cache,
       redirect: req.redirect,
       referrer: req.referrer,
-      integrity: req.integrity
+      //integrity: req.integrity
     };
     
     if(req.method === 'GET' ||
@@ -55,7 +55,11 @@ self.addEventListener('fetch', event => {
         ? response.status : 200,
             statusText = response.statusText,
             headers = response.headers;
-        return new Response(text, response);
+        return new Response(text, {
+          status: status,
+          statusText:statusText,
+          headers:headers
+        });
       }).catch(e => {
         return new Response("Error: " + e);
       });
