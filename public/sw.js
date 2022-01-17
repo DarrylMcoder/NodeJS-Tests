@@ -39,7 +39,7 @@ self.addEventListener('fetch', event => {
     }
     
     if(req.mode !== 'navigate') {
-      init.mode = req.mode;
+      //init.mode = req.mode;
     }
     var request = new Request(url,init);
   } catch(e) {
