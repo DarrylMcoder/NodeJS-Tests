@@ -19,6 +19,7 @@ self.addEventListener('fetch', event => {
   event.respondWith(async function() {
     try {
     var url = encodeUrl(event.request.url);
+      return url;
     var req = event.request;
     var init =     {
       method: req.method,
@@ -27,7 +28,7 @@ self.addEventListener('fetch', event => {
       cache: req.cache,
       redirect: req.redirect,
       referrer: req.referrer,
-      //integrity: req.integrity
+      integrity: req.integrity
     };
     
     if(req.method === 'GET' ||
@@ -39,7 +40,7 @@ self.addEventListener('fetch', event => {
     }
     
     if(req.mode !== 'navigate') {
-      //init.mode = req.mode;
+      init.mode = req.mode;
     }
     var request = new Request(url,init);
   } catch(e) {
