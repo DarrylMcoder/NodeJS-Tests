@@ -7,11 +7,11 @@ var express = require("express"),
     serveStatic = require('serve-static'),
     port = process.env.PORT || 80,
     app = express();
-
+/*
 app.use(function(req, res, next) {
   req.url = decodeUrl(req.url);
   next();
-});
+});*/
 
 app.use(
   unblocker({
@@ -45,6 +45,7 @@ console.log("app listening on port "+ port);
 function decodeUrl(url) {
   let separator = 'proxy/';
   if(!url.includes(separator)) {
+    console.log('No separator ');
     return;
   }
   let proxyUrl = url.slice(url.indexOf(separator) + separator.length);
