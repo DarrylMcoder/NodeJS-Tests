@@ -8,10 +8,10 @@ var express = require("express"),
     port = process.env.PORT || 80,
     app = express();
 ///*
-app.use(function(req, res, next) {
+app.use("proxy/", function(req, res, next) {
   res.end(req.url);
   req.url = decodeUrl(req.url);
-  //next();
+  next();
 });//*/
 
 app.use(
