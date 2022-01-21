@@ -7,11 +7,12 @@ var express = require("express"),
     serveStatic = require('serve-static'),
     port = process.env.PORT || 80,
     app = express();
-/*
+///*
 app.use(function(req, res, next) {
+  res.end(req.url);
   req.url = decodeUrl(req.url);
-  next();
-});*/
+  //next();
+});//*/
 
 app.use(
   unblocker({
