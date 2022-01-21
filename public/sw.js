@@ -19,7 +19,7 @@ self.addEventListener('fetch', event => {
   event.respondWith(async function() {
     try {
     var url = encodeUrl(event.request.url);
-      return new Response("Event.req.Url: " + event.request.url + " <br>Url: " + url);
+      //return new Response("Event.req.Url: " + event.request.url + " <br>Url: " + url);
     var req = event.request;
     var init =     {
       method: req.method,
