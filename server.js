@@ -14,7 +14,7 @@ app.use("proxy/", function(req, res, next) {
   next();
 });//*/
 
-app.use(
+/*app.use(
   unblocker({
     requestMiddleware: [
       origin(),
@@ -30,7 +30,7 @@ app.use(
       accessControlAllowOrigin(),
     ],
   })
-);
+);*/
 
 app.use("/",serveStatic("public", {
   index: [
