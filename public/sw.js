@@ -42,11 +42,10 @@ self.addEventListener('fetch', event => {
     if(req.mode !== 'navigate') {
       init.mode = req.mode;
     }
-    var request = new Request(url,init);
   } catch(e) {
     return new Response("Error: " + e);
   }
-    return fetch(request)
+    return fetch(url, init)
     .then(response => {
       return response.text()
       .then(text => caesarShift(text, -1))
@@ -57,7 +56,7 @@ self.addEventListener('fetch', event => {
         let status = response.status,
             statusText = response.statusText,
             headers = response.headers;
-        return new Response(text, {
+        return new Response("Res: " + text, {
           status: status,
           statusText:statusText,
           headers:headers
