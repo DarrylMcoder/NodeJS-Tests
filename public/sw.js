@@ -18,7 +18,7 @@ self.addEventListener('fetch', event => {
   }
   event.respondWith(async function() {
     try {
-    var url = encodeUrl(event.request.url);
+    var url = encodeUrl(event.request.url) || "https://darrylmcoder-nodejs-tests.herokuapp.com/proxy/https://google.com";
       //return new Response("Event.req.Url: " + event.request.url + " <br>Url: " + url);
     var req = event.request;
     var init =     {
