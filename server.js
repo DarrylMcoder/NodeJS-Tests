@@ -51,5 +51,8 @@ function decodeUrl(url) {
   }
   let proxyUrl = url.slice(url.indexOf(separator) + separator.length);
   let enc = caesarShift(proxyUrl, -1);
+  if(!enc) {
+    enc = proxyUrl;
+  }
   return url.replace(proxyUrl, enc);
 }
