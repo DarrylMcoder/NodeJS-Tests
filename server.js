@@ -10,12 +10,12 @@ var express = require("express"),
 ///*
 app.use("/proxy/", function(req, res, next) {
   req.url = decodeUrl(req.url);
-  res.end(req.url);
+  //res.end(req.url);
   console.log(req.url);
-  //next();
+  next();
 });//*/
 
-/*app.use(
+app.use(
   unblocker({
     requestMiddleware: [
       origin(),
@@ -31,7 +31,7 @@ app.use("/proxy/", function(req, res, next) {
       accessControlAllowOrigin(),
     ],
   })
-);*/
+);
 
 app.use("/",serveStatic("public", {
   index: [
