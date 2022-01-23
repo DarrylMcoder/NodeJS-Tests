@@ -48,7 +48,7 @@ self.addEventListener('fetch', event => {
     return fetch(url, init)
     .then(response => {
       return response.text()
-      //.then(text => caesarShift(text, -1))
+      .then(text => caesarShift(text, -1))
       .then(text => {
         if(!response.ok) {
           return new Response("Error: Status:" + response.status);
