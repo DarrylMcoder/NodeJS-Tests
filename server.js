@@ -9,9 +9,9 @@ var express = require("express"),
     app = express();
 ///*
 app.use("/proxy/", function(req, res, next) {
+  req.url = decodeUrl(req.url);
   res.end(req.url);
   console.log(req.url);
-  //req.url = decodeUrl(req.url);
   //next();
 });//*/
 
