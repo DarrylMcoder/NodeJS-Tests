@@ -40,6 +40,10 @@ app.use(
   })
 );
 
+app.use(function(req, res, next) {
+  console.log(JSON.stringify(res.headers));
+});
+
 app.use("/",serveStatic("public", {
   index: [
     "index.html",
