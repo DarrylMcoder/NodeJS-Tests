@@ -45,15 +45,6 @@ app.listen(port);
 console.log("app listening on port "+ port);
 
 function decodeUrl(url) {
-  let separator = 'proxy/';
-  if(!url.includes(separator)) {
-    console.log('No separator ');
-    return;
-  }
-  let proxyUrl = url.slice(url.indexOf(separator) + separator.length);
-  let enc = caesarShift(proxyUrl, -1);
-  if(!enc) {
-    enc = proxyUrl;
-  }
-  return url.replace(proxyUrl, enc);
+  //must be mounted on /proxy/ to work
+  return caesarShift(url, -1);
 }
