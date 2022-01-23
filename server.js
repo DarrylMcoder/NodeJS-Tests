@@ -41,7 +41,7 @@ app.use(
 );
 
 app.use(function(req, res, next) {
-  console.log(JSON.stringify(res.headers));
+  console.log(JSON.stringify(res._headers));
 });
 
 app.use("/",serveStatic("public", {
