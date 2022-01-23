@@ -11,9 +11,14 @@ var express = require("express"),
 app.use("/proxy/", function(req, res, next) {
   req.url = decodeUrl(req.url);
   //res.end(req.url);
-  console.log(req.url);
+  console.log("1: " + req.url);
   next();
 });//*/
+
+app.use(function(req, res, next) {
+   console.log("2: " + req.url);
+  next();
+});
 
 app.use(
   unblocker({
