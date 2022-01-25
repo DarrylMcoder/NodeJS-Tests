@@ -43,7 +43,7 @@ self.addEventListener('fetch', event => {
       init.mode = req.mode;
     }
   } catch(e) {
-    return new Response("Error: " + e);
+    return new Response("Request Error: " + e);
   }
     return fetch(url, init)
     .then(response => {
