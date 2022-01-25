@@ -26,7 +26,7 @@ self.addEventListener('fetch', event => {
       headers: req.headers,
       credentials: req.credentials,
       cache: req.cache,
-      redirect: req.redirect,
+      //redirect: req.redirect,
       referrer: req.referrer,
       integrity: req.integrity
     };
@@ -58,8 +58,8 @@ self.addEventListener('fetch', event => {
             headers = response.headers;
         return new Response(text, {
           status: status,
-          statusText:statusText,
-          headers:headers
+          statusText: statusText,
+          headers: headers
         });
       }).catch(e => {
         return new Response("Error: " + e);
