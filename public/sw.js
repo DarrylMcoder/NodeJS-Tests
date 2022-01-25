@@ -51,12 +51,12 @@ self.addEventListener('fetch', event => {
       .then(text => caesarShift(text, -1))
       .then(text => {
         if(!response.ok) {
-          return new Response("Error: Status:" + response.status);
+          return new Response("Error: Status: " + response.status);
         }
         let status = response.status,
             statusText = response.statusText,
             headers = response.headers;
-        return new Response("Res: " + text, {
+        return new Response(text, {
           status: status,
           statusText:statusText,
           headers:headers
