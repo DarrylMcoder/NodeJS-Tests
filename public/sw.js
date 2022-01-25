@@ -61,13 +61,13 @@ self.addEventListener('fetch', event => {
         .pipeThrough(tstream)
         .pipeThrough(new TextEncoderStream());
       let status = response.status,
-            statusText = response.statusText,
-            headers = response.headers;
-        return new Response(stream.readable, {
-          status: status,
-          statusText: statusText,
-          headers: headers
-        });
+          statusText = response.statusText,
+          headers = response.headers;
+      return new Response(stream, {
+        status: status,
+        statusText: statusText,
+        headers: headers
+      });
     })
     .catch(e => {
       return new Response("Error: " + e);
