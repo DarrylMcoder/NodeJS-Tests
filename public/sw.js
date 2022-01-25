@@ -13,7 +13,7 @@ self.addEventListener('activate', function(event){
 });
 
 self.addEventListener('fetch', event => {
-  if(!event.request.url.includes('proxy/http')) {
+  if(!event.request.url.includes('proxy')) {
     return;
   }
   event.respondWith(async function() {
