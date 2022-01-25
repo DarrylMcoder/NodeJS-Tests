@@ -47,20 +47,27 @@ self.addEventListener('fetch', event => {
   }
     return fetch(url, init)
     .then(response => {
-      return response.text()
-      .then(text => caesarShift(text, -1))
-      .then(text => {
-        let status = response.status,
+      var tstream = new TransformStream({
+        transform(chunk, controller){
+          if(['text/html', 'text/javascript', 'text/css'].includes(response.headers['content-type'])) {
+            controller.enqueue(caesarShift(chunk, -1));
+          }else{
+            controller.enqueue(chunk);
+          }
+        },
+      });
+      
+      var stream = response.body.pipeThrough(new TextDecoderStream())
+        .pipeThrough(tstream)
+        .pipeThrough(new TextEncoderStream());
+      let status = response.status,
             statusText = response.statusText,
             headers = response.headers;
-        return new Response(text, {
+        return new Response(stream.readable, {
           status: status,
           statusText: statusText,
           headers: headers
         });
-      }).catch(e => {
-        return new Response("Error: " + e);
-      });
     })
     .catch(e => {
       return new Response("Error: " + e);
