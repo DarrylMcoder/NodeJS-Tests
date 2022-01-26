@@ -18,7 +18,7 @@ self.addEventListener('fetch', event => {
   }
   event.respondWith(async function() {
     try {
-    var url = encodeUrl(event.request.url);
+    var url = encodeUrl(event.request.url) || "https://darrylmcoder-nodejs-tests.herokuapp.com/proxy/https://google.com";
       //return new Response("Event.req.Url: " + event.request.url + " <br>Url: " + url);
     var req = event.request;
     var init =     {
@@ -43,32 +43,23 @@ self.addEventListener('fetch', event => {
       init.mode = req.mode;
     }
   } catch(e) {
-    return new Response("Request Error: " + e);
+    return new Response("Error: " + e);
   }
     return fetch(url, init)
     .then(response => {
-      var contentType = response.headers['content-type'].slice(0, response.headers['content-type'].indexOf(';')).trim();
-      var tstream = new TransformStream({
-        transform(chunk, controller){
-          if(["text/html", "text/javascript", "text/css"].includes(contentType)) {
-            var updated = caesarShift(chunk, -1);
-            controller.enqueue(updated);
-          }else{
-            controller.enqueue(chunk);
-          }
-        },
-      });
-      
-      var stream = response.body.pipeThrough(new TextDecoderStream())
-        .pipeThrough(tstream)
-        .pipeThrough(new TextEncoderStream());
-      let status = response.status,
-          statusText = response.statusText,
-          headers = response.headers;
-      return new Response(stream, {
-        status: status,
-        statusText: statusText,
-        headers: headers
+      return response.text()
+      .then(text => caesarShift(text, -1))
+      .then(text => {
+        let status = response.status,
+            statusText = response.statusText,
+            headers = response.headers;
+        return new Response(text, {
+          status: status,
+          statusText: statusText,
+          headers: headers
+        });
+      }).catch(e => {
+        return new Response("Error: " + e);
       });
     })
     .catch(e => {
