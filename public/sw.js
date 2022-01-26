@@ -71,7 +71,7 @@ self.addEventListener('fetch', event => {
       });
     })
     .catch(e => {
-      return new Response("Error: " + e);
+      return new Response("Error: " + JSON.stringify(e));
     });
   }());
 });
