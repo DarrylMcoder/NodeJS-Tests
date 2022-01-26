@@ -47,7 +47,7 @@ self.addEventListener('fetch', event => {
   }
     return fetch(url, init)
     .then(response => {
-      var contentType = trim(response.headers['content-type'].slice(0, response.headers['content-type'].indexOf(';')));
+      var contentType = response.headers['content-type'].slice(0, response.headers['content-type'].indexOf(';')).trim();
       var tstream = new TransformStream({
         transform(chunk, controller){
           if(["text/html", "text/javascript", "text/css"].includes(contentType)) {
