@@ -18,7 +18,7 @@ self.addEventListener('fetch', event => {
   }
   event.respondWith(async function() {
     try {
-    var url = encodeUrl(event.request.url) || "https://darrylmcoder-nodejs-tests.herokuapp.com/proxy/https://google.com";
+    var url = encodeUrl(event.request.url);
       //return new Response("Event.req.Url: " + event.request.url + " <br>Url: " + url);
     var req = event.request;
     var init =     {
@@ -49,8 +49,9 @@ self.addEventListener('fetch', event => {
     .then(response => {
       var tstream = new TransformStream({
         transform(chunk, controller){
-          if(['text/html', 'text/javascript', 'text/css'].includes(response.headers['content-type'])) {
-            controller.enqueue(caesarShift(chunk, -1));
+          if(["text/html", "text/javascript", "text/css"].includes(response.headers['content-type'])) {
+            var updated = caesarShift(chunk, -1);
+            controller.enqueue(updated);
           }else{
             controller.enqueue(chunk);
           }
