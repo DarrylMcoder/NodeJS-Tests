@@ -24,11 +24,11 @@ self.addEventListener('fetch', event => {
     var init =     {
       method: req.method,
       headers: req.headers,
-      credentials: req.credentials,
-      cache: req.cache,
+      //credentials: req.credentials,
+      //cache: req.cache,
       //redirect: req.redirect,
-      referrer: req.referrer,
-      integrity: req.integrity
+      //referrer: req.referrer,
+      //integrity: req.integrity
     };
     
     if(req.method === 'GET' ||
